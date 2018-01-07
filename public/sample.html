@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>
+	Todo App
+</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-resource.js"></script>
+<script src="./script.js"></script>
+</head>
+<body ng-app='myApp' ng-controller='myCtrl'>
+<div class="page-header jumbotron text-center"><h1>Todo App</h1></div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 col-md-offset-2">
+			<form ng-submit="submitform(todoform.$valid,200)" name="todoform"  method ="post" novalidate>
+				<div class="form-group" ng-class="{'has-error':todoform.todo.$invalid && !todoform.todo.$pristine}">
+				    <label class="control-label" for="todo">ToDo</label>
+				    <input type="text" ng-model="task.todo" class="form-control" name="todo" id="todo" ng-required=true >
+				    <p ng-show="todoform.todo.$invalid && todoform.todo.$dirty" class="help-block">Todo is required.</p>
+				</div>
+				<div class="form-group" ng-class="{'has-error':todoform.user.$invalid && !todoform.user.$pristine}">
+				    <label class="control-label" for="user">User</label>
+				    <input type="text" ng-model="task.user"  class="form-control" name="user" id="user" required>
+				    <p ng-show="todoform.user.$invalid && !todoform.user.$pristine" class="help-block">Your name is required.</p>
+				</div>
+				<div class="checkbox">
+		    		<label class="form-check-label"><input id='isDone' ng-model="task.complete" name="complete" type="checkbox"> Complete</label>
+		  		</div>
+				<div class="form-group" ng-class="{'has-error':todoform.date.$invalid && !todoform.date.$pristine}">
+				    <label class="control-label" for="date">Start Date</label>
+				    <input type="date" ng-model="task.date"  class="form-control" name="date" id="date" required>
+				    <p ng-show="todoform.date.$invalid && !todoform.date.$pristine" class="help-block">Date is required.</p>
+				</div>
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</form>
+		</div>
+	</div>
+	
+	<!-- <pre>{{todoform | json}}</pre> -->
+	<br>
+	<br>
+
+	
+	<button ng-click="showTable(0);" class="btn btn-primary">show tasks</button>
+	<div ng-show="display">
+		<div class="h2" >
+	    	Tasks added:
+		</div>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>todo</th>
+					<th>user</th>
+					<th>complete</th>
+					<th>startDate</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="task in tasks">
+					<td>{{task.task}}</td>
+					<td>{{task.owner}}</td>
+					<td>{{task.complete}}</td>
+					<td>{{task.date | date}}</td>
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+	
+</div>
+
+
+</body>
+</html>
